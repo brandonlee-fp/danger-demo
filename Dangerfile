@@ -11,8 +11,12 @@ warn("Add labels 🏷️") if github.pr_labels.empty?
 warn("PR is too large") if git.lines_of_code > 500
 
 # Check 5: Documentation
-all_changes = git.modified_files + git.added_files
-warn("Update README") if all_changes.any? && !all_changes.include?("README.md")
+readme_path = "README.md"
+if !File.exist?(readme_path)
+  warn("Missing documentation: Please create a README.md file.")
+elsif git.modified_files.any? && !git.modified_files.include?(readme_path) && !git.added_files.include?(readme_path)
+  warn("⚠️ Update README: You modified code files, but didn't update the README.md to match.")
+end
 
 # Confirmation
 has_warnings = status_report[:warnings].any?
