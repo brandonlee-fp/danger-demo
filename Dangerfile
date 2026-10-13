@@ -22,6 +22,6 @@ elsif all_changed.any? && !all_changed.include?(readme_path)
 end
 
 # Confirmation
-if danger.warnings.empty? && danger.failures.empty?
+if warnings.empty? && errors.empty?
   message("🎉 **Great Job!** This Pull Request passes all standard health checks. Ready for human review!")
 end
