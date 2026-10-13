@@ -22,6 +22,6 @@ elsif all_changed.any? && !all_changed.include?(readme_path)
 end
 
 # Confirmation
-if warnings.empty? && errors.empty?
-  message("🎉 **Great Job!** This Pull Request passes all standard health checks. Ready for human review!")
-end
+has_warnings = status_report[:warnings].any?
+has_failures = status_report[:errors].any?
+message("🎉 **Great Job!** This Pull Request passes all standard health checks. Ready for human review!") if !has_warnings && !has_failures
