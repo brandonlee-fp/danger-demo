@@ -14,4 +14,6 @@ warn("PR is too large") if git.lines_of_code > 500
 warn("Update README") if git.modified_files.any? { |f| f.start_with?("src/") } && !git.modified_files.include?("README.md")
 
 # Confirmation
-message("🎉 **Great Job!** This Pull Request passes all standard health checks. Ready for human review!") if danger.warnings.empty? && danger.failures.empty?
+has_warnings = status_report[:warnings].any?
+has_failures = status_report[:errors].any?
+message("🎉 **Great Job!** This Pull Request passes all standard health checks. Ready for human review!") if !has_warnings && !has_failures
