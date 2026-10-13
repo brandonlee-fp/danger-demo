@@ -21,7 +21,7 @@ warn("PR is too large") if git.lines_of_code > 500
 #   warn("⚠️ Update README: You modified code files, but didn't update the README.md to match.")
 # end
 
-warn("Update README") if git.modified_files.any? { |f| f.end_with?(".py") } && !git.modified_files.include?("README.md")
+warn("Update README") if !git.modified_files.include?("README.md")
 
 # Confirmation
 has_warnings = status_report[:warnings].any?
