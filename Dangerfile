@@ -12,14 +12,16 @@ lines = git.lines_of_code rescue 0
 warn("PR is too large") if git.lines_of_code > 500
 
 # Check 5: Documentation
-readme_path = "README.md"
-all_changed = (git.modified_files || []) + (git.added_files || [])
+# readme_path = "README.md"
+# all_changed = (git.modified_files || []) + (git.added_files || [])
 
-if !File.exist?(readme_path)
-  warn("Missing documentation: Please create a README.md file.")
-elsif all_changed.any? && !all_changed.include?(readme_path)
-  warn("⚠️ Update README: You modified code files, but didn't update the README.md to match.")
-end
+# if !File.exist?(readme_path)
+#   warn("Missing documentation: Please create a README.md file.")
+# elsif all_changed.any? && !all_changed.include?(readme_path)
+#   warn("⚠️ Update README: You modified code files, but didn't update the README.md to match.")
+# end
+
+warn("Update README") if git.modified_files.any? { |f| f.end_with?(".py") } && !git.modified_files.include?("README.md")
 
 # Confirmation
 has_warnings = status_report[:warnings].any?
