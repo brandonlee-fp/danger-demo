@@ -11,7 +11,10 @@ warn("Add labels 🏷️") if github.pr_labels.empty?
 warn("PR is too large") if git.lines_of_code > 500
 
 # Check 5: Documentation
-warn("Update README") if !git.modified_files.include?("README.md")
+all_changes = git.modified_files + git.added_files
+
+# Only warn if the PR actually contains changes, but NONE of them are the README
+warn("Update README") if all_changes.any? && !all_changes.include?("README.md")
 
 # Confirmation
 has_warnings = status_report[:warnings].any?
