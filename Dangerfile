@@ -11,7 +11,7 @@ warn("🏷️ **Missing Labels:** Please add at least one label (e.g., `bug`, `e
 warn("⚠️ **Large Pull Request:** Consider breaking this down into smaller, focused PRs.") if (git.insertions + git.deletions) > 500
 
 # Check 5: Documentation
-warn("📚 **Documentation Check:** You modified source code files but did not update any markdown (`.md`) files.") if !git.modified_files.grep(%r{.*\.swift\(}).empty? && git.modified_files.grep(\%r{.*\.md\)}).empty?
+warn("📚 **Documentation Check:** You modified source code files but did not update any markdown (`.md`) files.") if git.modified_files.grep(/\.md\/).empty?
 
 # Confirmation
 message("🎉 **Great Job!** This Pull Request passes all standard health checks. Ready for human review!") if danger.warnings.empty? && danger.failures.empty?
